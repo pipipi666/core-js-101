@@ -269,8 +269,10 @@ function reverseInteger(num) {
  *   4916123456789012 => false
  */
 function isCreditCardNumber(ccn) {
-  return !([...ccn.toString()].reverse().reduce((acc, curr, i) => {
-    if (!(i % 2)) {
+  const arr = ccn.length % 2 ? [...ccn.toString()].slice(0, -1) : [...ccn.toString()];
+  arr.reverse();
+  return !(arr.reduce((acc, curr, i) => {
+    if (i % 2) {
       if (Number(curr) * 2 > 9) {
         return acc + Number(curr) * 2 - 9;
       }
