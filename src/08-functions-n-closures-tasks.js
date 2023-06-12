@@ -24,10 +24,11 @@
  *
  */
 function getComposition(f, g) {
-  return function (arg) {
+  function fn(arg) {
     const res = g(arg);
     return f(res);
-  };
+  }
+  return fn;
 }
 
 
@@ -48,9 +49,10 @@ function getComposition(f, g) {
  *
  */
 function getPowerFunction(exponent) {
-  return function (num) {
+  function f(num) {
     return num ** exponent;
-  };
+  }
+  return f;
 }
 
 
@@ -69,9 +71,10 @@ function getPowerFunction(exponent) {
  */
 function getPolynom(...args) {
   args.reverse();
-  return function (x) {
+  function f(x) {
     return args.reduce((acc, curr, index) => acc + curr * (x ** index), 0);
-  };
+  }
+  return f;
 }
 
 /**
@@ -90,11 +93,12 @@ function getPolynom(...args) {
  */
 function memoize(func) {
   let res;
-  return function () {
+  function f() {
     if (res) return res;
     res = func();
     return res;
-  };
+  }
+  return f;
 }
 
 
@@ -151,11 +155,12 @@ function retry(func, attempts) {
  *
  */
 function logger(func, logFunc) {
-  return function (...x) {
+  function f(...x) {
     logFunc(`${func.name}(${x}) starts`);
     logFunc(`${func.name}(${x}) ends`);
     return func(x);
-  };
+  }
+  return f;
 }
 
 
@@ -173,10 +178,11 @@ function logger(func, logFunc) {
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
 function partialUsingArguments(fn, ...args1) {
-  return function (...x) {
+  function f(...x) {
     const arr = [...args1, ...x];
     return fn(...arr);
-  };
+  }
+  return f;
 }
 
 
@@ -199,10 +205,11 @@ function partialUsingArguments(fn, ...args1) {
  */
 function getIdGeneratorFunction(startFrom) {
   let id = startFrom - 1;
-  return function () {
+  function f() {
     id += 1;
     return id;
-  };
+  }
+  return f;
 }
 
 
